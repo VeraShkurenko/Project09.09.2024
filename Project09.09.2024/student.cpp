@@ -12,12 +12,18 @@ public:
         name = nullptr;
         age = 0;
     }
-    Student(const char* Name, int Age) // construct by 2 param
+    Student(const char* Name)
     {
         name = new char[strlen(Name) + 1];
         strcpy_s(name, strlen(Name) + 1, Name);
+    }
+    Student(const char* Name, int Age) : Student(Name)
+    {
         age = Age;
     }
+
+
+
     void Output()
     {
         cout << "Name: " << name << endl
