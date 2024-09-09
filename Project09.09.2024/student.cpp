@@ -1,89 +1,52 @@
 #include<iostream>
-#include<time.h>
+#include<Windows.h>
 using namespace std;
 
-class Point
+class Student
 {
-    //private:
-    int x;
-    int y;
-    int z;
+    char* name;
+    int age;
 public:
-    Point()
+    Student() // construct by default
     {
-        cout << "Construct\n";
-        x = y = 0;
+        name = nullptr;
+        age = 0;
     }
-    Point(int x1)
+    Student(const char* Name, int Age) // construct by 2 param
     {
-        cout << "construct X\n";
-        x = x1;
-    }
-    Point(int x1, int y1) :Point(x1)
-    {
-        cout << "construct Y\n";
-        y = y1;
-    }
-    Point(int x1, int y1, int z1) :Point(x1, y1) // главный конструктор(делегирует задачи, перенаправл€ет по другим конструкторам)
-    {
-        cout << "construct Z\n";
-        z = z1;
+        name = new char[strlen(Name) + 1];
+        strcpy_s(name, strlen(Name) + 1, Name);
+        age = Age;
     }
     void Output()
     {
-        cout << "X: " << x << "\tY: " << y << endl;
+        cout << "Name: " << name << endl
+            << "Age: " << age << endl << endl;
     }
-
-    //////  методы аксессоры
-
-    int GetX()const  // инспекторы
+    ~Student()
     {
-        // x = -100; // ошибка 
-        return x;
-    }
-
-    int GetY()const
-    {
-        return y;
-    }
-
-    int GetZ()const
-    {
-        return z;
-    }
-
-    /////  ћодификаторы 
-    void SetX(int X)
-    {
-        // X <100
-        if (X > 100)
+        if (name != nullptr)
         {
-            cout << "Error\n";
-            x = 0;
+            delete[] name;
         }
-        else
-        {
-            x = X;
-        }
+        cout << "Destruct\n";
+        Sleep(1000);
+
     }
-};
-/*
-—интаксис делегировани€:
-»м€_класса ( параметры (формальные) ) : им€_класса ( формальна€ передача параметров )
-{
-тело;
-};
-*/
 
-void main()
-{
-    Point obj1(10, 20, 30);
-    cout << obj1.GetX() << endl;
 
-    obj1.SetX(1000);
-    cout << obj1.GetX() << endl;
-    obj1.SetX(25);
-    cout << obj1.GetX() << endl;
+};
+
+int main()
+{
+    Student obj1("Oleg", 21);
+    obj1.Output();
+
+    /*Student mas[2]{ {"Alena",20 }, {"Maksim", 22} };
+    for (int i = 0; i < 2; i++)
+    {
+      mas[i].Output();
+      }*/
 
 
 
